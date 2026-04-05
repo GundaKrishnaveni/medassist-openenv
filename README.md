@@ -1,40 +1,38 @@
 ---
-title: MedAssist AI
-emoji: 🏥
+title: MedAssist OpenEnv
+emoji: 🚀
 colorFrom: blue
 colorTo: green
 sdk: gradio
-sdk_version: "4.44.0"
 app_file: app.py
-pinned: false
 ---
 
-# 🏥 MedAssist AI
+# MedAssist OpenEnv
 
-AI-powered medical triage system with explainable reasoning.
+Medical triage simulation environment for evaluating AI agents using OpenEnv.
 
-## 🚀 Features
+## 🚀 Overview
+MedAssist is a real-world inspired environment where an AI agent performs:
+- Patient triage
+- Diagnosis
+- Decision making
 
-- Diagnosis prediction
-- Risk level classification
-- Confidence scoring
-- Explainable reasoning
-- Interactive UI
+## 🧪 Tasks
 
-## 🧠 How It Works
+### Easy
+Basic symptom analysis and low-risk classification.
 
-1. Select symptoms  
-2. System calculates score  
-3. Determines risk level  
-4. Generates confidence  
-5. Provides explanation  
+### Medium
+Moderate condition detection and reasoning.
 
-## 📊 Model Evaluation
+### Hard
+Critical condition handling with correct diagnosis and action.
 
-- Simulated dataset used  
-- Accuracy: ~80–85%  
-- Consistent classification  
+## ⚙️ Features
+- OpenEnv compliant environment
+- Step / Reset / State APIs
+- Deterministic graders
+- Reward system (0.0 – 1.0)
+- Baseline inference agent
 
-## ⚠️ Disclaimer
-
-This is not a medical diagnosis. Consult a doctor.
+## 📂 Project Structure
