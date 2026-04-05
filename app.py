@@ -40,8 +40,7 @@ def medassist(symptoms_list):
 
     explanation = "\n".join(reasons)
 
-    return f"""
-Diagnosis: {diagnosis}
+    return f"""Diagnosis: {diagnosis}
 
 Risk: {risk}
 
@@ -61,11 +60,11 @@ with gr.Blocks() as demo:
         label="Select Symptoms"
     )
 
-    output = gr.Textbox(label="Result")
+    output = gr.Textbox(label="Result")   # 🔥 IMPORTANT (NOT Markdown)
 
     btn = gr.Button("Analyze")
 
     btn.click(fn=medassist, inputs=symptoms, outputs=output)
 
-# 🔥 IMPORTANT FIX
-demo.launch(share=True)
+# ❌ NO share=True
+demo.launch()
