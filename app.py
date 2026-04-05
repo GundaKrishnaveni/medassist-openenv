@@ -1,6 +1,12 @@
 import gradio as gr
 
-def hello():
-    return "MedAssist OpenEnv is running"
+def run():
+    return "MedAssist OpenEnv is running successfully!"
 
-gr.Interface(fn=hello, inputs=[], outputs="text").launch()
+iface = gr.Interface(
+    fn=run,
+    inputs=[],
+    outputs="text"
+)
+
+iface.launch()
