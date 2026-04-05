@@ -1,6 +1,5 @@
 import gradio as gr
 
-# smarter AI-like reasoning
 def medassist(symptoms_list):
     score = 0
     reasons = []
@@ -21,13 +20,19 @@ def medassist(symptoms_list):
         score += 1
         reasons.append("Fever indicates infection")
 
-    # decision logic
+    # Confidence calculation
+    confidence = min(95, score * 12)
+
+    # Uncertainty handling
+    if len(symptoms_list) == 0:
+        return "⚠️ Please select at least one symptom."
+
     if score >= 7:
         diagnosis = "Possible Heart Attack"
         action = "Go to Hospital Immediately"
         risk = "HIGH 🔴"
     elif score >= 4:
-        diagnosis = "Possible Diabetes / Moderate Condition"
+        diagnosis = "Possible Moderate Condition"
         action = "Consult Doctor"
         risk = "MEDIUM 🟡"
     else:
@@ -42,19 +47,19 @@ def medassist(symptoms_list):
 
 ⚡ Risk Level: {risk}
 
+📊 Confidence: {confidence}%
+
 💊 Recommended Action: {action}
 
-📊 Reasoning:
+🧾 Reasoning:
 {explanation}
 
 ⚠️ Disclaimer: This is not a medical diagnosis. Consult a doctor.
 """
 
-
-# UI
 with gr.Blocks() as demo:
     gr.Markdown("# 🏥 MedAssist AI")
-    gr.Markdown("### AI-powered medical triage system")
+    gr.Markdown("### AI-powered medical triage system with explainable reasoning")
 
     symptoms = gr.CheckboxGroup(
         ["Chest Pain", "Shortness of Breath", "Fatigue", "Fever"],
