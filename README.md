@@ -1,30 +1,40 @@
-## 📊 Model Training & Evaluation
-
-This system uses a simulated dataset to validate performance.
-
-- Generated 100+ synthetic patient cases  
-- Applied rule-based scoring logic  
-- Evaluated prediction accuracy  
-
-### 📈 Results
-
-- Accuracy: ~80–85% on simulated dataset  
-- Consistent triage classification (Low / Medium / High risk)
-
+---
+title: MedAssist AI
+emoji: 🏥
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: "4.44.0"
+app_file: app.py
+pinned: false
 ---
 
-## 🧠 AI Design Approach
+# 🏥 MedAssist AI
 
-This project follows an Explainable AI approach:
+AI-powered medical triage system with explainable reasoning.
 
-- Rule-based scoring for interpretability  
-- Confidence scoring for uncertainty estimation  
-- Multi-factor reasoning for transparency  
+## 🚀 Features
 
----
+- Diagnosis prediction
+- Risk level classification
+- Confidence scoring
+- Explainable reasoning
+- Interactive UI
 
-## 🚀 Future Improvements
+## 🧠 How It Works
 
-- Integrate real clinical datasets  
-- Train ML models  
-- Expand symptom coverage  
+1. Select symptoms  
+2. System calculates score  
+3. Determines risk level  
+4. Generates confidence  
+5. Provides explanation  
+
+## 📊 Model Evaluation
+
+- Simulated dataset used  
+- Accuracy: ~80–85%  
+- Consistent classification  
+
+## ⚠️ Disclaimer
+
+This is not a medical diagnosis. Consult a doctor.
