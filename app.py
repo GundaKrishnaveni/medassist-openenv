@@ -57,13 +57,15 @@ with gr.Blocks() as demo:
     gr.Markdown("# 🏥 MedAssist AI")
 
     symptoms = gr.CheckboxGroup(
-        ["Chest Pain", "Shortness of Breath", "Fatigue", "Fever"]
+        ["Chest Pain", "Shortness of Breath", "Fatigue", "Fever"],
+        label="Select Symptoms"
     )
 
-    output = gr.Textbox()
+    output = gr.Textbox(label="Result")
 
     btn = gr.Button("Analyze")
 
     btn.click(fn=medassist, inputs=symptoms, outputs=output)
 
-demo.launch()
+# 🔥 IMPORTANT FIX
+demo.launch(share=True)
