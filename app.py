@@ -4,7 +4,7 @@ def medassist(symptoms_list):
     score = 0
     reasons = []
 
-    if len(symptoms_list) == 0:
+    if not symptoms_list:
         return "⚠️ Please select at least one symptom."
 
     if "Chest Pain" in symptoms_list:
@@ -54,7 +54,7 @@ Reasoning:
 """
 
 with gr.Blocks() as demo:
-    gr.Markdown("# MedAssist AI")
+    gr.Markdown("# 🏥 MedAssist AI")
 
     symptoms = gr.CheckboxGroup(
         ["Chest Pain", "Shortness of Breath", "Fatigue", "Fever"]
