@@ -1,0 +1,4 @@
+name: medassist-openenv
+version: 1.0
+entrypoint: env:MedicalEnv
+hf_space: false
