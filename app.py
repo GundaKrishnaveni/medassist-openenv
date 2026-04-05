@@ -4,6 +4,10 @@ def medassist(symptoms_list):
     score = 0
     reasons = []
 
+    if len(symptoms_list) == 0:
+        return "⚠️ Please select at least one symptom."
+
+    # Core symptoms
     if "Chest Pain" in symptoms_list:
         score += 5
         reasons.append("Chest pain indicates possible cardiac issue")
@@ -20,56 +24,114 @@ def medassist(symptoms_list):
         score += 1
         reasons.append("Fever indicates infection")
 
-    # Confidence calculation
-    confidence = min(95, score * 12)
+    # Additional symptoms
+    if "Headache" in symptoms_list:
+        score += 1
+        reasons.append("Headache may indicate neurological or viral condition")
 
-    # Uncertainty handling
-    if len(symptoms_list) == 0:
-        return "⚠️ Please select at least one symptom."
+    if "Nausea" in symptoms_list:
+        score += 2
+        reasons.append("Nausea indicates digestive or systemic issue")
 
-    if score >= 7:
-        diagnosis = "Possible Heart Attack"
+    if "Dizziness" in symptoms_list:
+        score += 2
+        reasons.append("Dizziness may indicate blood pressure issues")
+
+    if "Cough" in symptoms_list:
+        score += 2
+        reasons.append("Cough suggests respiratory infection")
+
+    if "Sore Throat" in symptoms_list:
+        score += 1
+        reasons.append("Sore throat indicates infection")
+
+    if "Abdominal Pain" in symptoms_list:
+        score += 3
+        reasons.append("Abdominal pain may indicate internal organ issues")
+
+    if "Back Pain" in symptoms_list:
+        score += 1
+        reasons.append("Back pain may be muscular or structural")
+
+    if "Loss of Appetite" in symptoms_list:
+        score += 1
+        reasons.append("Loss of appetite indicates systemic illness")
+
+    # Confidence
+    confidence = min(95, score * 10)
+
+    # Decision
+    if score >= 8:
+        diagnosis = "🚨 Possible Critical Condition"
         action = "Go to Hospital Immediately"
         risk = "HIGH 🔴"
     elif score >= 4:
-        diagnosis = "Possible Moderate Condition"
+        diagnosis = "⚠️ Moderate Condition"
         action = "Consult Doctor"
         risk = "MEDIUM 🟡"
     else:
-        diagnosis = "Mild Illness (Flu/Cold)"
+        diagnosis = "✅ Mild Condition (Flu/Cold)"
         action = "Rest & Hydration"
         risk = "LOW 🟢"
 
-    explanation = "\n".join(reasons)
+    explanation = "\n• " + "\n• ".join(reasons)
 
     return f"""
-🧠 Diagnosis: {diagnosis}
+### 🧠 Diagnosis
+{diagnosis}
 
-⚡ Risk Level: {risk}
+### ⚡ Risk Level
+{risk}
 
-📊 Confidence: {confidence}%
+### 📊 Confidence
+{confidence}%
 
-💊 Recommended Action: {action}
+### 💊 Recommended Action
+{action}
 
-🧾 Reasoning:
+### 🧾 Reasoning
 {explanation}
 
-⚠️ Disclaimer: This is not a medical diagnosis. Consult a doctor.
+---
+⚠️ *This is not a medical diagnosis. Consult a doctor.*
 """
 
-with gr.Blocks() as demo:
-    gr.Markdown("# 🏥 MedAssist AI")
-    gr.Markdown("### AI-powered medical triage system with explainable reasoning")
+# 🎨 Custom CSS for PRO UI
+custom_css = """
+body {background: linear-gradient(135deg, #eef2ff, #f8fafc);}
+h1 {text-align: center; color: #1e3a8a;}
+.container {border-radius: 20px;}
+button {background: linear-gradient(90deg, #2563eb, #22c55e) !important; color: white !important; font-weight: bold;}
+"""
 
-    symptoms = gr.CheckboxGroup(
-        ["Chest Pain", "Shortness of Breath", "Fatigue", "Fever"],
-        label="Select Symptoms"
-    )
+with gr.Blocks(css=custom_css) as demo:
 
-    output = gr.Textbox(label="Analysis Result")
+    gr.Markdown("""
+    # 🏥 MedAssist AI
+    ### Intelligent Medical Triage System  
+    _Analyze symptoms with AI-powered reasoning and confidence scoring_
+    """)
 
-    btn = gr.Button("Analyze Patient")
+    with gr.Row():
+        with gr.Column(scale=1):
+            gr.Markdown("### 🧾 Select Symptoms")
 
-    btn.click(fn=medassist, inputs=symptoms, outputs=output)
+            symptoms = gr.CheckboxGroup(
+                [
+                    "Chest Pain", "Shortness of Breath", "Fatigue", "Fever",
+                    "Headache", "Nausea", "Dizziness", "Cough",
+                    "Sore Throat", "Abdominal Pain", "Back Pain", "Loss of Appetite"
+                ],
+                label=""
+            )
+
+            analyze_btn = gr.Button("🔍 Analyze Patient")
+
+        with gr.Column(scale=1):
+            gr.Markdown("### 📊 Analysis Result")
+
+            output = gr.Markdown()
+
+    analyze_btn.click(fn=medassist, inputs=symptoms, outputs=output)
 
 demo.launch()
