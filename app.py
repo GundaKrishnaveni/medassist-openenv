@@ -1,58 +1,70 @@
 import gradio as gr
 
-# smarter logic
-def medassist(symptoms_text):
-    symptoms = symptoms_text.lower()
-
+# smarter AI-like reasoning
+def medassist(symptoms_list):
     score = 0
-    result = {}
+    reasons = []
 
-    # scoring system
-    if "chest pain" in symptoms:
+    if "Chest Pain" in symptoms_list:
         score += 5
-    if "shortness of breath" in symptoms:
-        score += 4
-    if "fatigue" in symptoms:
-        score += 2
-    if "fever" in symptoms:
-        score += 1
+        reasons.append("Chest pain indicates possible cardiac issue")
 
-    # decision
+    if "Shortness of Breath" in symptoms_list:
+        score += 4
+        reasons.append("Breathing difficulty increases risk")
+
+    if "Fatigue" in symptoms_list:
+        score += 2
+        reasons.append("Fatigue suggests metabolic or chronic condition")
+
+    if "Fever" in symptoms_list:
+        score += 1
+        reasons.append("Fever indicates infection")
+
+    # decision logic
     if score >= 7:
         diagnosis = "Possible Heart Attack"
         action = "Go to Hospital Immediately"
-        risk = "HIGH"
+        risk = "HIGH 🔴"
     elif score >= 4:
         diagnosis = "Possible Diabetes / Moderate Condition"
         action = "Consult Doctor"
-        risk = "MEDIUM"
+        risk = "MEDIUM 🟡"
     else:
         diagnosis = "Mild Illness (Flu/Cold)"
         action = "Rest & Hydration"
-        risk = "LOW"
+        risk = "LOW 🟢"
+
+    explanation = "\n".join(reasons)
 
     return f"""
-Diagnosis: {diagnosis}
+🧠 Diagnosis: {diagnosis}
 
-Recommended Action: {action}
+⚡ Risk Level: {risk}
 
-Risk Level: {risk}
+💊 Recommended Action: {action}
+
+📊 Reasoning:
+{explanation}
+
+⚠️ Disclaimer: This is not a medical diagnosis. Consult a doctor.
 """
+
 
 # UI
 with gr.Blocks() as demo:
-    gr.Markdown("# MedAssist AI 🏥")
-    gr.Markdown("Enter patient symptoms to get diagnosis and recommendation")
+    gr.Markdown("# 🏥 MedAssist AI")
+    gr.Markdown("### AI-powered medical triage system")
 
-    inp = gr.Textbox(
-        label="Enter Symptoms",
-        placeholder="e.g. chest pain, shortness of breath, fatigue"
+    symptoms = gr.CheckboxGroup(
+        ["Chest Pain", "Shortness of Breath", "Fatigue", "Fever"],
+        label="Select Symptoms"
     )
 
-    out = gr.Textbox(label="Result")
+    output = gr.Textbox(label="Analysis Result")
 
-    btn = gr.Button("Analyze")
+    btn = gr.Button("Analyze Patient")
 
-    btn.click(fn=medassist, inputs=inp, outputs=out)
+    btn.click(fn=medassist, inputs=symptoms, outputs=output)
 
 demo.launch()
