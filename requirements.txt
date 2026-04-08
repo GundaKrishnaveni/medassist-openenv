@@ -1,4 +1,1 @@
-gradio
-pydantic
-openenv-core
-huggingface_hub==0.19.4
+gradio==4.36.1

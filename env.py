@@ -5,7 +5,7 @@ class MedicalEnv:
     def reset(self, input_data=None):
         self.done = False
 
-        # VERY IMPORTANT: handle dict input
+        # Accept dict (what checker POSTs)
         if isinstance(input_data, dict):
             symptoms = input_data.get("symptoms", [])
         else:
@@ -21,7 +21,6 @@ class MedicalEnv:
         symptoms = action.get("symptoms", [])
 
         score = 0
-
         if "Chest Pain" in symptoms:
             score += 5
         if "Shortness of Breath" in symptoms:
@@ -44,9 +43,7 @@ class MedicalEnv:
         self.done = True
 
         return {
-            "observation": {
-                "diagnosis": diagnosis
-            },
+            "observation": {"diagnosis": diagnosis},
             "reward": reward,
             "done": self.done,
             "info": {}

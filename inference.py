@@ -7,6 +7,7 @@ MODEL_NAME = os.getenv("MODEL_NAME", "baseline")
 def run_task(name, file):
     env = MedicalEnv()
 
+    # MUST pass dict
     obs = env.reset({"symptoms": ["Fever"]})
 
     print(f"[START] task={name} env=medassist model={MODEL_NAME}")
