@@ -10,9 +10,10 @@ class MedicalEnv:
         else:
             symptoms = []
 
-        # ✅ FLAT RESPONSE (IMPORTANT)
         return {
-            "symptoms": symptoms
+            "observation": {
+                "symptoms": symptoms
+            }
         }
 
     def step(self, action):
@@ -41,7 +42,10 @@ class MedicalEnv:
         self.done = True
 
         return {
-            "diagnosis": diagnosis,
+            "observation": {
+                "diagnosis": diagnosis
+            },
             "reward": reward,
-            "done": self.done
+            "done": True,
+            "info": {}
         }
