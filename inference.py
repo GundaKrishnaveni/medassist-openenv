@@ -4,7 +4,6 @@ from env import MedicalEnv
 API_BASE_URL = os.getenv("API_BASE_URL", "")
 MODEL_NAME = os.getenv("MODEL_NAME", "baseline")
 
-
 def run_task(name, file):
     env = MedicalEnv()
 
@@ -29,3 +28,8 @@ def run_task(name, file):
         step += 1
 
     print(f"[END] total_steps={step}")
+
+
+# ✅ THIS WAS MISSING (CRITICAL)
+if __name__ == "__main__":
+    run_task("test", None)
