@@ -5,16 +5,14 @@ class MedicalEnv:
     def reset(self, input_data=None):
         self.done = False
 
-        # Accept dict (what checker POSTs)
         if isinstance(input_data, dict):
             symptoms = input_data.get("symptoms", [])
         else:
-            symptoms = input_data if input_data else []
+            symptoms = []
 
+        # ✅ FLAT RESPONSE (IMPORTANT)
         return {
-            "observation": {
-                "symptoms": symptoms
-            }
+            "symptoms": symptoms
         }
 
     def step(self, action):
@@ -43,8 +41,7 @@ class MedicalEnv:
         self.done = True
 
         return {
-            "observation": {"diagnosis": diagnosis},
+            "diagnosis": diagnosis,
             "reward": reward,
-            "done": self.done,
-            "info": {}
+            "done": self.done
         }

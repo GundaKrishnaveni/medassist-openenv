@@ -4,21 +4,19 @@ from env import MedicalEnv
 API_BASE_URL = os.getenv("API_BASE_URL", "")
 MODEL_NAME = os.getenv("MODEL_NAME", "baseline")
 
-def run_task(name, file):
+
+def run():
     env = MedicalEnv()
 
-    # MUST pass dict
     obs = env.reset({"symptoms": ["Fever"]})
 
-    print(f"[START] task={name} env=medassist model={MODEL_NAME}")
+    print("[START]")
 
     done = False
     step = 0
 
     while not done:
-        symptoms = obs["observation"]["symptoms"]
-
-        action = {"symptoms": symptoms}
+        action = {"symptoms": obs["symptoms"]}
 
         result = env.step(action)
 
@@ -28,7 +26,8 @@ def run_task(name, file):
         done = result["done"]
         step += 1
 
-    print(f"[END] total_steps={step}")
+    print("[END]")
+
 
 if __name__ == "__main__":
-    run_task("test", None)
+    run()
