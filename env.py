@@ -5,9 +5,15 @@ class MedicalEnv:
     def reset(self, input_data=None):
         self.done = False
 
+        # VERY IMPORTANT: handle dict input
+        if isinstance(input_data, dict):
+            symptoms = input_data.get("symptoms", [])
+        else:
+            symptoms = input_data if input_data else []
+
         return {
             "observation": {
-                "symptoms": input_data if input_data else []
+                "symptoms": symptoms
             }
         }
 
