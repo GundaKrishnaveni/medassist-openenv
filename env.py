@@ -5,8 +5,13 @@ class MedicalEnv:
     def reset(self, input_data=None):
         self.done = False
 
-        if isinstance(input_data, dict):
+        # ✅ Robust handling (VERY IMPORTANT)
+        if input_data is None:
+            symptoms = []
+        elif isinstance(input_data, dict):
             symptoms = input_data.get("symptoms", [])
+        elif isinstance(input_data, list):
+            symptoms = input_data
         else:
             symptoms = []
 
@@ -17,7 +22,11 @@ class MedicalEnv:
         }
 
     def step(self, action):
-        symptoms = action.get("symptoms", [])
+        # ✅ Safe extraction (IMPORTANT)
+        if isinstance(action, dict):
+            symptoms = action.get("symptoms", [])
+        else:
+            symptoms = []
 
         score = 0
         if "Chest Pain" in symptoms:
